@@ -43,7 +43,7 @@ public class USUARIO {
 	}
 	@Override
 	public String toString() {
-		return "USUARIO [nombre=" + nombre + ", contra=" + contra + ", saldo=" + saldo + ", compra=" + compra + "]";
+		return nombre +";"+contra+";"+saldo;
 	}
 	
 }
