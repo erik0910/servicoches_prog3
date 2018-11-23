@@ -43,7 +43,7 @@ public class USUARIO {
 	}
 	@Override
 	public String toString() {
-		return nombre +";"+contra+";"+saldo;
+		return nombre +";"+contra+";"+saldo ;
 	}
 	
 }

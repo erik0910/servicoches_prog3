@@ -21,16 +21,17 @@ import javax.swing.JButton;
 import javax.swing.JPasswordField;
 
 public class Registro extends JFrame implements ActionListener{
-	private JTextField textField;
-	ArrayList<USUARIO>p1;
-	private JPasswordField passwordField;
+	private static JTextField textField;
+	protected static ArrayList<USUARIO>p1=new ArrayList<>();
+	private static JPasswordField passwordField;
+	JButton btnRegistrar ;
 	public Registro() {
 		setSize(new Dimension(900, 900));
 		setPreferredSize(getSize());
 		pack(); 
 		getContentPane().setLayout(null);
-		p1=new ArrayList<>();
-		
+		//recogemos todos los usuarios 
+		leerFichero();
 		textField = new JTextField();
 		textField.setBounds(285, 203, 373, 45);
 		getContentPane().add(textField);
@@ -44,8 +45,9 @@ public class Registro extends JFrame implements ActionListener{
 		lblContrasea.setBounds(51, 382, 188, 39);
 		getContentPane().add(lblContrasea);
 		
-		JButton btnRegistrar = new JButton("Registrar");
+		 btnRegistrar = new JButton("Registrar");
 		btnRegistrar.setBounds(272, 552, 197, 47);
+		btnRegistrar.addActionListener(this);
 		getContentPane().add(btnRegistrar);
 		
 		passwordField = new JPasswordField();
@@ -54,15 +56,20 @@ public class Registro extends JFrame implements ActionListener{
 		setVisible(true);
 	
 	}
+	
 	public static void main(String[] args) {
 		new Registro();
 	}
-	public static void meterdatos(USUARIO usuario) {
+	public static void meterdatos() {
 		try {
 			FileWriter e=new FileWriter("usuarios.csv");
-			
+			String contra=String.valueOf(passwordField.getPassword());
+			USUARIO p=new USUARIO(textField.getText(),contra,0);
+			p1.add(p);
+			for (USUARIO usuario : p1) {
+				e.write(usuario.toString()+"\n");
+			}
 			e.close();
-			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -73,13 +80,14 @@ public class Registro extends JFrame implements ActionListener{
 			FileReader a=new FileReader("usuarios.csv");
 			BufferedReader b=new BufferedReader(a);
 			String linea=null;
+			
 			while((linea=b.readLine())!=null) {
-				int i=0;
+				System.out.println("entra");
 				System.out.println(linea);
 				String ac[]=linea.split(";");
-			USUARIO p=new USUARIO(ac[0], ac[1], Integer.parseInt(ac[2]));
+				
+			USUARIO p=new USUARIO(ac[0], ac[1], Double.parseDouble(ac[2]));
 			p1.add(p);}
-			
 			b.close();
 			a.close();
 		} catch (FileNotFoundException e) {
@@ -90,23 +98,24 @@ public class Registro extends JFrame implements ActionListener{
 			e.printStackTrace();
 		}
 		}
-	public boolean compararContra() {
+	//metodo que compara los usuarioa anteriores para que no se puedan crear varios con el mismo nombre
+	public boolean comparar() {
+		String nombre=textField.getText();
 		for (USUARIO usuario : p1) {
-			if(usuario.equals(textField.getText())) {return false;}
+			if(nombre.equals(usuario.getNombre())) {return false;}
 		}
 		return true;
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		if(compararContra()) {
-			USUARIO usuario=new USUARIO(textField.getText(), passwordField.getText(), 0);
-			p1.add(usuario);
-		meterdatos(usuario);
+		String contra=String.valueOf(passwordField.getPassword());
+		System.out.println(contra);
+		if(comparar()) {
+		meterdatos();
 		new  InicioSesion();
 		this.dispose();
 		}
-		JOptionPane.showConfirmDialog(null, "el usuario ya esta por favor cambie de nombre");
+	//	JOptionPane.showConfirmDialog(null, "el usuario ya esta por favor cambie de nombre");
 		
 	}
 }
