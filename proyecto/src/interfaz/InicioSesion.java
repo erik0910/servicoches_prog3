@@ -126,7 +126,7 @@ public class InicioSesion extends JFrame implements ActionListener, Runnable{
 		
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-	meterdatos();
+	new InicioSesion();
 	}
 	//todavia necesita crearse la base de datos para poder hacerlo correctamente
 

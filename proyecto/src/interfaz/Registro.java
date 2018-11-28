@@ -8,6 +8,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -19,11 +21,14 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import javax.swing.JPasswordField;
-
+import bd.BaseDeDatos;
 public class Registro extends JFrame implements ActionListener{
 	private static JTextField textField;
 	protected static ArrayList<USUARIO>p1=new ArrayList<>();
 	private static JPasswordField passwordField;
+	
+	private Connection c;
+	private Statement st;
 	JButton btnRegistrar ;
 	public Registro() {
 		setSize(new Dimension(900, 900));
@@ -54,7 +59,9 @@ public class Registro extends JFrame implements ActionListener{
 		passwordField.setBounds(285, 379, 373, 42);
 		getContentPane().add(passwordField);
 		setVisible(true);
-	
+		c = BaseDeDatos.iniciar();
+		st = BaseDeDatos.usarBD(c);
+		
 	}
 	
 	public static void main(String[] args) {
@@ -111,6 +118,9 @@ public class Registro extends JFrame implements ActionListener{
 		String contra=String.valueOf(passwordField.getPassword());
 		System.out.println(contra);
 		if(comparar()) {
+		USUARIO u=new USUARIO(textField.getText(),contra , 0);
+		BaseDeDatos.insertarUsuarios(st, u);
+		BaseDeDatos.cerrarBD(c, st);
 		meterdatos();
 		new  InicioSesion();
 		this.dispose();
