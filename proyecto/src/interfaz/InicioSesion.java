@@ -9,11 +9,15 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+
+import org.omg.CORBA.BAD_CONTEXT;
 
 import Objetos.Producto;
 import Objetos.USUARIO;
@@ -21,9 +25,9 @@ import Objetos.USUARIO;
 
 import java.awt.Toolkit;
 import java.awt.Font;
-
+import bd.BaseDeDatos;
 public class InicioSesion extends JFrame implements ActionListener, Runnable{
-
+	//para mostrar la ohra al usuario todavia no esta seguro de que se valla a usar
 	Calendar calendario=Calendar.getInstance();
 	private JPasswordField passwordField;
 	private JTextField textField;
@@ -32,9 +36,15 @@ public class InicioSesion extends JFrame implements ActionListener, Runnable{
 	private JButton btnNewButton_1;
 	private JButton btnNewButton_2;
 	private JLabel lblHora;
+	//hilo que se usara futuramente para mejorar la imagen de la interfaz 
 	Thread thread;
+	//contenedor de los uusarios contenidos en la base de datos
 	ArrayList<USUARIO>users;
-	public InicioSesion() {users=new ArrayList<>();
+	//Base de datos 
+	Connection con;
+	Statement st;
+	public InicioSesion() {
+		users=new ArrayList<>();
 		thread=new Thread(this);
 		thread.start();
 		setTitle("Servi-coches tu app para hacer compras");
@@ -81,6 +91,12 @@ public class InicioSesion extends JFrame implements ActionListener, Runnable{
 		lblHora.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblHora.setBounds(515, 0, 249, 39);
 		getContentPane().add(lblHora);
+		//inicaianodo la base de datos
+		con=BaseDeDatos.iniciar();
+		 st=BaseDeDatos.usarBD(con);
+		 //metemos los datos
+		 users= BaseDeDatos.cargaUsuario(con, st);
+		 //por mania lo meto en le propio constructor las caracteristacaas del la ventana
 	setVisible(true);
 	setLocationRelativeTo(null);
 	setSize(800, 800);
@@ -109,32 +125,35 @@ public class InicioSesion extends JFrame implements ActionListener, Runnable{
 			e.printStackTrace();
 		}
 		}
-	public static void meterdatos() {
-		try {
-			FileWriter e=new FileWriter("usuarios.csv");
-			
-			e.close();
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+	//compara si el usuario existe o no
+	public boolean compara() {
+		for (USUARIO usuario : users) {
+			if(usuario.getNombre().equals(textField.getText())&& 
+			usuario.getContra().equals(String.valueOf(passwordField.getPassword()))) {
+			return  true;
+			}
 		}
-	}
-			
-			
-		
-		
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-	new InicioSesion();
-	}
+		return false;
+	}		
 	//todavia necesita crearse la base de datos para poder hacerlo correctamente
 
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
-		
+		Object j=arg0.getSource();
+		if(j==btnNewButton) {
+			if(compara()) {
+				System.out.println("te has metido a la pagina principal");
+				this.dispose();
+			}else {System.out.println("contraseña incorrecta");}
+			}else if(j==btnNewButton_1){
+				System.out.println("modo invitado");
+				this.dispose();
+				}else {
+				new Registro();	
+				this.dispose();
+				}
 	}
 	@Override
 	public void run() {

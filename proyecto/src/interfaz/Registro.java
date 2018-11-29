@@ -26,9 +26,9 @@ public class Registro extends JFrame implements ActionListener{
 	private static JTextField textField;
 	protected static ArrayList<USUARIO>p1=new ArrayList<>();
 	private static JPasswordField passwordField;
-	
 	private Connection c;
 	private Statement st;
+	protected int id=0;
 	JButton btnRegistrar ;
 	public Registro() {
 		setSize(new Dimension(900, 900));
@@ -36,7 +36,6 @@ public class Registro extends JFrame implements ActionListener{
 		pack(); 
 		getContentPane().setLayout(null);
 		//recogemos todos los usuarios 
-		leerFichero();
 		textField = new JTextField();
 		textField.setBounds(285, 203, 373, 45);
 		getContentPane().add(textField);
@@ -61,55 +60,17 @@ public class Registro extends JFrame implements ActionListener{
 		setVisible(true);
 		c = BaseDeDatos.iniciar();
 		st = BaseDeDatos.usarBD(c);
+		p1=BaseDeDatos.cargaUsuario(c, st);
 		
 	}
-	
-	public static void main(String[] args) {
-		new Registro();
-	}
-	public static void meterdatos() {
-		try {
-			FileWriter e=new FileWriter("usuarios.csv");
-			String contra=String.valueOf(passwordField.getPassword());
-			USUARIO p=new USUARIO(textField.getText(),contra,0);
-			p1.add(p);
-			for (USUARIO usuario : p1) {
-				e.write(usuario.toString()+"\n");
-			}
-			e.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	public void leerFichero() {
-		try {
-			FileReader a=new FileReader("usuarios.csv");
-			BufferedReader b=new BufferedReader(a);
-			String linea=null;
-			
-			while((linea=b.readLine())!=null) {
-				System.out.println("entra");
-				System.out.println(linea);
-				String ac[]=linea.split(";");
-				
-			USUARIO p=new USUARIO(ac[0], ac[1], Double.parseDouble(ac[2]));
-			p1.add(p);}
-			b.close();
-			a.close();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		}
+
 	//metodo que compara los usuarioa anteriores para que no se puedan crear varios con el mismo nombre
 	public boolean comparar() {
 		String nombre=textField.getText();
 		for (USUARIO usuario : p1) {
 			if(nombre.equals(usuario.getNombre())) {return false;}
+		//para obtener ademas el id del ultimmol usuario regustrado en la tabla 
+		id=BaseDeDatos.idUsuario(c, st, usuario.getNombre())+1;
 		}
 		return true;
 	}
@@ -118,14 +79,15 @@ public class Registro extends JFrame implements ActionListener{
 		String contra=String.valueOf(passwordField.getPassword());
 		System.out.println(contra);
 		if(comparar()) {
+			int idReal=id-1;
+			System.out.println(idReal);
 		USUARIO u=new USUARIO(textField.getText(),contra , 0);
-		BaseDeDatos.insertarUsuarios(st, u);
+		BaseDeDatos.insertarUsuarios(st, u,id);
 		BaseDeDatos.cerrarBD(c, st);
-		meterdatos();
 		new  InicioSesion();
 		this.dispose();
 		}
-	//	JOptionPane.showConfirmDialog(null, "el usuario ya esta por favor cambie de nombre");
+	
 		
 	}
 }
