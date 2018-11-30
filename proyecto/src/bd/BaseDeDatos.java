@@ -50,6 +50,29 @@ public class BaseDeDatos {
 			return null;
 		}
 	}
+	public static Statement usarCrearTablasBD( Connection con ) {
+		try {
+			Statement statement = con.createStatement();
+			statement.setQueryTimeout(30);  // poner timeout 30 msg
+			try {
+				statement.executeUpdate("create table cesta " +
+					"( id integer not null primary key ,"
+					+ "id_producto integer ,"
+					+ "cantidad integer ,"
+					+ "costeTotal numeric ,"
+					+ " FOREIGN KEY(id_producto) REFERENCES Producto(id))");
+				System.out.println("ha sido creada la tabla correctamente");
+			} catch (SQLException e) {
+				System.out.println("ya ha sido creada");
+			} 
+
+			return statement;
+		} catch (SQLException e) {
+	
+			e.printStackTrace();
+			return null;
+		}
+	}
 	public static ArrayList<USUARIO> cargaUsuario(Connection con ,Statement st){
 		String sentSQL="";
 		ArrayList< USUARIO>devolver=new ArrayList<>();
