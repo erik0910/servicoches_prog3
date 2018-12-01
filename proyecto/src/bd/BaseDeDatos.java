@@ -16,7 +16,7 @@ public class BaseDeDatos {
 	public static Connection iniciar() {
 		try {
 		    Class.forName("org.sqlite.JDBC");
-		    Connection conexion = DriverManager.getConnection("jdbc:sqlite:proyecto.db");
+		    Connection conexion = DriverManager.getConnection("jdbc:sqlite:servichoches.db");
 		System.out.println("ha entrado");
 		    return conexion;
 		} catch (ClassNotFoundException | SQLException e) {
@@ -29,7 +29,7 @@ public class BaseDeDatos {
 		
 		try {
 			sentSQL = "insert into Usuario values('" +i+"'"+
-					",'" + u.getNombre()+"',"+ "'"+u.getContra()+"',"+u.getSaldo()+")";
+					",'" + u.getNombre()+"',"+ "'"+u.getContra()+"',"+u.getSaldo()+","+i+")";
 			int val = state.executeUpdate( sentSQL );
 			
 		} catch (SQLException e) {
@@ -50,12 +50,21 @@ public class BaseDeDatos {
 			return null;
 		}
 	}
+	//metodo para crear todas las tablas que se usaran en este programa
 	public static Statement usarCrearTablasBD( Connection con ) {
 		try {
 			Statement statement = con.createStatement();
 			statement.setQueryTimeout(30);  // poner timeout 30 msg
 			try {
-				statement.executeUpdate("create table cesta " +
+				statement.executeUpdate("create table Producto " +
+					"( id integer not null primary key ,"
+					+ "nombre text ,"
+					+ "precio numeric ");
+			} catch (Exception e) {
+				System.out.println("la tabla  producto ya ha sido creada");
+			}
+			try {
+				statement.executeUpdate("create table Cesta " +
 					"( id integer not null primary key ,"
 					+ "id_producto integer ,"
 					+ "cantidad integer ,"
@@ -63,9 +72,25 @@ public class BaseDeDatos {
 					+ " FOREIGN KEY(id_producto) REFERENCES Producto(id))");
 				System.out.println("ha sido creada la tabla correctamente");
 			} catch (SQLException e) {
-				System.out.println("ya ha sido creada");
+				System.out.println("ya ha sido creada la tabla cesta");
 			} 
-
+			try {
+				statement.executeUpdate("create table Usuario " +
+						"( id integer not null primary key AUTOINCREMENT ,"//para que no se repita y se incremente 
+						+ "nombre text ,"
+						+ "contra text ,"
+						+ "saldo numeric ,"
+						+ "id_cesta integer ,"
+						+ " FOREIGN KEY(id_cesta) REFERENCES Cesta(id) ON DELETE CASCADE ) "//EN EL CASO DE QUE SE BORRE LA CESTA DE
+						//PEDIDOS SE ELIMINARA TODA REFERENCIA DE LA TABLA CESTA 
+						
+						);
+			} catch (Exception e) {
+				// TODO: handle exception
+				System.out.println("se ha creado la tabla Usuario");
+			}
+			
+			System.out.println("actualización creada correctamente");
 			return statement;
 		} catch (SQLException e) {
 	
