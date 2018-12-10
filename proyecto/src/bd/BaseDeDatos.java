@@ -137,4 +137,11 @@ public class BaseDeDatos {
 			e.printStackTrace();
 		}
 	}
+	private static String secu(String string) {
+		StringBuffer ret = new StringBuffer();
+		for (char c : string.toCharArray()) {
+			if ("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZñÑáéíóúüÁÉÍÓÚÚ.,:;-_(){}[]-+*=<>'\"¿?¡!&%$@#/\\0123456789".indexOf(c)>=0) ret.append(c);
+		}
+		return ret.toString();
+	}
 }
