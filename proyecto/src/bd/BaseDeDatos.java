@@ -6,13 +6,36 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import Objetos.USUARIO;
 
+
 public class BaseDeDatos {
+	private static Exception lastError = null; 
 	public static Logger log;
+	//añadir situacion reciente de la base de datos
+	public static void setLogger( Logger logger ) {
+		BaseDeDatos.log = logger;
+	}
+	private static void log( Level level, String msg, Throwable excepcion ) {
+		if (log==null) {  // Logger por defecto local:
+			log = Logger.getLogger( BaseDeDatos.class.getName() );  // Nombre del logger - el de la clase
+			log.setLevel( Level.ALL );  // Loguea todos los niveles
+			try {
+				// logger.addHandler( new FileHandler( "bd-" + System.currentTimeMillis() + ".log.xml" ) );  // Y saca el log a fichero xml
+				log.addHandler( new FileHandler( "bd.log.xml", true ) );  // Y saca el log a fichero xml
+			} catch (Exception e) {
+				log.log( Level.SEVERE, "No se pudo crear fichero de log", e );
+			}
+		}
+		if (excepcion==null)
+			log.log( level, msg );
+		else
+			log.log( level, msg, excepcion );
+	}
 	public static Connection iniciar() {
 		try {
 		    Class.forName("org.sqlite.JDBC");
@@ -20,20 +43,26 @@ public class BaseDeDatos {
 		System.out.println("ha entrado");
 		    return conexion;
 		} catch (ClassNotFoundException | SQLException e) {
+			lastError = e;
+			log( Level.SEVERE, "Error en uso de base de datos", e );
 			e.printStackTrace();
 			return null;
 		}
+	}
+	public static Exception getLastError() {
+		return lastError;
 	}
 	public static void insertarUsuarios(Statement state,USUARIO u,int i) {
 		String sentSQL="";
 		
 		try {
 			sentSQL = "insert into Usuario values('" +i+"'"+
-					",'" + u.getNombre()+"',"+ "'"+u.getContra()+"',"+u.getSaldo()+","+i+")";
+					",'" + secu(u.getNombre())+"',"+ "'"+secu(u.getContra())+"',"+ u.getSaldo()+","+i+")";
 			int val = state.executeUpdate( sentSQL );
 			
 		} catch (SQLException e) {
-		
+			lastError = e;
+			log( Level.SEVERE, "Error en al insertar datos en la base de datos", e );
 			e.printStackTrace();
 		}
 		
@@ -45,7 +74,8 @@ public class BaseDeDatos {
 			statement.setQueryTimeout(30);  // 30 msg
 			return statement;
 		} catch (SQLException e) {
-			
+			lastError = e;
+			log( Level.SEVERE, "Error al conectar en la base de  datos", e );
 			e.printStackTrace();
 			return null;
 		}
@@ -61,7 +91,8 @@ public class BaseDeDatos {
 					+ "nombre text ,"
 					+ "precio numeric ");
 			} catch (Exception e) {
-				System.out.println("la tabla  producto ya ha sido creada");
+				lastError = e;
+				log( Level.SEVERE, "ya ha sido creada la tabla producto", e );
 			}
 			try {
 				statement.executeUpdate("create table Cesta " +
@@ -72,7 +103,8 @@ public class BaseDeDatos {
 					+ " FOREIGN KEY(id_producto) REFERENCES Producto(id))");
 				System.out.println("ha sido creada la tabla correctamente");
 			} catch (SQLException e) {
-				System.out.println("ya ha sido creada la tabla cesta");
+				lastError = e;
+				log( Level.SEVERE, "ya ha sido creada la tabla cesta", e );
 			} 
 			try {
 				statement.executeUpdate("create table Usuario " +
@@ -87,13 +119,15 @@ public class BaseDeDatos {
 						);
 			} catch (Exception e) {
 				// TODO: handle exception
-				System.out.println("se ha creado la tabla Usuario");
+				lastError = e;
+				log( Level.SEVERE, "ya ha sido creada la tabla usuario", e );
 			}
-			
+			//como recurso primitivo para saber que estoy conectado y que ha salido todo bien
 			System.out.println("actualización creada correctamente");
 			return statement;
 		} catch (SQLException e) {
-	
+			lastError = e;
+			log( Level.SEVERE, "error en la creacion de las tablas", e );
 			e.printStackTrace();
 			return null;
 		}
@@ -111,6 +145,8 @@ public class BaseDeDatos {
 			rs.close();
 			return devolver;
 		} catch (SQLException e) {
+			lastError = e;
+			log( Level.SEVERE, "erro en la lectura de la base de datos", e );
 			e.printStackTrace();
 			return null;
 		}
@@ -133,7 +169,8 @@ public class BaseDeDatos {
 			if (con!=null) con.close();
 		System.out.println("se ha cerrado la base de datos");
 		} catch (SQLException e) {
-		
+			lastError = e;
+			log( Level.SEVERE, "error al cerrar la base de datos", e );
 			e.printStackTrace();
 		}
 	}
