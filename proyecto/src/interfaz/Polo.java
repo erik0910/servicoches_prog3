@@ -11,6 +11,7 @@ import javax.swing.JScrollPane;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JRadioButton;
 
 public class Polo extends JFrame{
 	
@@ -74,20 +75,15 @@ public class Polo extends JFrame{
 		lblNewLabel_2.setBounds(1136, 819, 56, 16);
 		getContentPane().add(lblNewLabel_2);
 		
+		JRadioButton rdbtncv_4 = new JRadioButton("500cv");
+		rdbtncv_4.setBounds(726, 683, 127, 25);
+		getContentPane().add(rdbtncv_4);
 		
 		
 		
 		
-	}
-	
-	
-	
-	
-	
-	
 		
-
-		
+	}		
 		
 
 	public static void main(String[] args) {
