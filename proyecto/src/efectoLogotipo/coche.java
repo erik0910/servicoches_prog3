@@ -34,17 +34,15 @@ public class coche extends JFrame {
 		setPreferredSize(getSize());
 		setVisible(true);
 		paint(g);
-		
 	}
 	public static void main(String[] args) {
 		new coche();
 	}
-
 	@Override
 	public void paint(Graphics g1) {
 		try {
 			imagen=ImageIO.read(getClass().getResource("/imagenes/"+nombre+i+".jpg"));
-			g1.drawImage(imagen, 500, 60, 900,200, null);
+			g1.drawImage(imagen, 150, 60, 900,200, null);
 			//el objetivo de la funcion count es unicamente la de repetir imagenes para hacer la transiciones mas
 			//lentas
 			if(i<10 && count==9) {i++;count=0; }
