@@ -2,6 +2,9 @@ package interfaz;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
@@ -43,7 +46,25 @@ public class InicioSesion extends JFrame implements ActionListener, Runnable{
 	//Base de datos 
 	Connection con;
 	Statement st;
+	
+	private JMenuBar menuBar;
+	private JMenu menuPrincipal;
+	private JMenuItem m1, m2, m3, m4, m5;
+	
+	
 	public InicioSesion() {
+		
+
+		
+		menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+		menuPrincipal= new JMenu("W");
+		menuBar.add(menuPrincipal);
+		m1=new JMenuItem("Tienda");
+		m2= new JMenuItem("Catálogo");
+		m3= new JMenuItem("Sobre nosotros...");
+		m4= new JMenuItem("Donde encontrarnos");
+		
 		users=new ArrayList<>();
 		thread=new Thread(this);
 		thread.start();
