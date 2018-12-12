@@ -47,22 +47,6 @@ public class Polo extends JFrame{
 		lblNewLabel.setBounds(544, 101, 188, 118);
 		getContentPane().add(lblNewLabel);
 		
-		JLabel lblNewLabel_1 = new JLabel("MOTOR");
-		lblNewLabel_1.setBounds(54, 687, 56, 16);
-		getContentPane().add(lblNewLabel_1);
-		
-		JLabel lblColor = new JLabel("COLOR");
-		lblColor.setBounds(54, 716, 56, 16);
-		getContentPane().add(lblColor);
-		
-		JLabel lblTapiceria = new JLabel("TAPICERIA");
-		lblTapiceria.setBounds(54, 745, 90, 16);
-		getContentPane().add(lblTapiceria);
-		
-		JLabel lblLlantas = new JLabel("LLANTAS");
-		lblLlantas.setBounds(54, 774, 56, 16);
-		getContentPane().add(lblLlantas);
-		
 		JButton btnComprar = new JButton("A\u00D1ADIR AL CARRO");
 		btnComprar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -74,10 +58,6 @@ public class Polo extends JFrame{
 		JLabel lblNewLabel_2 = new JLabel("PRECIO");
 		lblNewLabel_2.setBounds(1136, 819, 56, 16);
 		getContentPane().add(lblNewLabel_2);
-		
-		JRadioButton rdbtncv_4 = new JRadioButton("500cv");
-		rdbtncv_4.setBounds(726, 683, 127, 25);
-		getContentPane().add(rdbtncv_4);
 		
 		
 		
