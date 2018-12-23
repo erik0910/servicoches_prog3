@@ -29,6 +29,8 @@ import Objetos.USUARIO;
 import java.awt.Toolkit;
 import java.awt.Font;
 import bd.BaseDeDatos;
+import java.awt.Color;
+import javax.swing.JPanel;
 public class InicioSesion extends JFrame implements ActionListener, Runnable{
 	//para mostrar la ohra al usuario todavia no esta seguro de que se valla a usar
 	Calendar calendario=Calendar.getInstance();
@@ -53,10 +55,13 @@ public class InicioSesion extends JFrame implements ActionListener, Runnable{
 	
 	
 	public InicioSesion() {
+		getContentPane().setBackground(Color.BLACK);
 		
 
 		
 		menuBar = new JMenuBar();
+		menuBar.setBackground(Color.DARK_GRAY);
+		menuBar.setForeground(Color.DARK_GRAY);
 		setJMenuBar(menuBar);
 		menuPrincipal= new JMenu("W");
 		menuBar.add(menuPrincipal);
@@ -73,38 +78,43 @@ public class InicioSesion extends JFrame implements ActionListener, Runnable{
 		getContentPane().setLayout(null);
 		
 		lblNewLabel = new JLabel("SERVI-COCHES");
-		lblNewLabel.setBounds(264, 66, 240, 39);
+		lblNewLabel.setForeground(Color.LIGHT_GRAY);
+		lblNewLabel.setBounds(536, 13, 240, 39);
 		getContentPane().add(lblNewLabel);
 		
 		 btnNewButton = new JButton("INICAR");
 		 btnNewButton.addActionListener(this);
-		btnNewButton.setBounds(31, 428, 197, 47);
+		btnNewButton.setBounds(47, 537, 197, 47);
 		getContentPane().add(btnNewButton);
 		
 		 btnNewButton_1 = new JButton("INVITADO");
 		 btnNewButton_1.addActionListener(this);
-		btnNewButton_1.setBounds(264, 428, 197, 47);
+		btnNewButton_1.setBounds(288, 537, 197, 47);
 		getContentPane().add(btnNewButton_1);
 		
 		btnNewButton_2 = new JButton("REGISTRAR");
 		btnNewButton_2.addActionListener(this);
-		btnNewButton_2.setBounds(515, 428, 227, 47);
+		btnNewButton_2.setBounds(536, 537, 205, 47);
 		getContentPane().add(btnNewButton_2);
 		
 		JLabel lblNewLabel_1 = new JLabel("Nombre:");
-		lblNewLabel_1.setBounds(65, 202, 138, 39);
+		lblNewLabel_1.setFont(new Font("Baskerville Old Face", Font.PLAIN, 25));
+		lblNewLabel_1.setForeground(Color.LIGHT_GRAY);
+		lblNewLabel_1.setBounds(47, 357, 152, 46);
 		getContentPane().add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("Contrase\u00F1a:");
-		lblNewLabel_2.setBounds(65, 294, 179, 39);
+		lblNewLabel_2.setFont(new Font("Baskerville Old Face", Font.PLAIN, 25));
+		lblNewLabel_2.setForeground(Color.LIGHT_GRAY);
+		lblNewLabel_2.setBounds(47, 442, 179, 39);
 		getContentPane().add(lblNewLabel_2);
 		
 		passwordField = new JPasswordField();
-		passwordField.setBounds(253, 292, 350, 42);
+		passwordField.setBounds(238, 441, 503, 42);
 		getContentPane().add(passwordField);
 		
 		textField = new JTextField();
-		textField.setBounds(253, 199, 350, 45);
+		textField.setBounds(238, 358, 503, 45);
 		getContentPane().add(textField);
 		textField.setColumns(10);
 		
@@ -112,6 +122,22 @@ public class InicioSesion extends JFrame implements ActionListener, Runnable{
 		lblHora.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblHora.setBounds(515, 0, 249, 39);
 		getContentPane().add(lblHora);
+		
+		JPanel panel = new JPanel();
+		panel.setBackground(Color.DARK_GRAY);
+		panel.setBounds(0, 630, 782, 97);
+		getContentPane().add(panel);
+		panel.setLayout(null);
+		
+		JLabel lblNewLabel_3 = new JLabel("Erik Martinez Iba\u00F1ez");
+		lblNewLabel_3.setFont(new Font("Century Schoolbook", Font.PLAIN, 15));
+		lblNewLabel_3.setBounds(620, 50, 150, 34);
+		panel.add(lblNewLabel_3);
+		
+		JLabel lblXabierGalendeEchevarra = new JLabel("Xabier Galende Echevarr\u00EDa");
+		lblXabierGalendeEchevarra.setFont(new Font("Century Schoolbook", Font.PLAIN, 15));
+		lblXabierGalendeEchevarra.setBounds(578, 39, 192, 16);
+		panel.add(lblXabierGalendeEchevarra);
 		//inicaianodo la base de datos
 		con=BaseDeDatos.iniciar();
 		 st=BaseDeDatos.usarBD(con);
@@ -181,5 +207,4 @@ public class InicioSesion extends JFrame implements ActionListener, Runnable{
 		// TODO Auto-generated method stub
 		
 	}
-	
 }
