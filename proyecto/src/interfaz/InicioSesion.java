@@ -37,9 +37,9 @@ public class InicioSesion extends JFrame implements ActionListener, Runnable{
 	private JPasswordField passwordField;
 	private JTextField textField;
 	private JLabel lblNewLabel;
-	private JButton btnNewButton;
-	private JButton btnNewButton_1;
-	private JButton btnNewButton_2;
+	private JButton botonIniciar;
+	private JButton botonInvitado;
+	private JButton botonRegistrar;
 	private JLabel lblHora;
 	//hilo que se usara futuramente para mejorar la imagen de la interfaz 
 	Thread thread;
@@ -79,35 +79,35 @@ public class InicioSesion extends JFrame implements ActionListener, Runnable{
 		
 		lblNewLabel = new JLabel("SERVI-COCHES");
 		lblNewLabel.setForeground(Color.LIGHT_GRAY);
-		lblNewLabel.setBounds(536, 13, 240, 39);
+		lblNewLabel.setBounds(530, 13, 240, 39);
 		getContentPane().add(lblNewLabel);
 		
-		 btnNewButton = new JButton("INICAR");
-		 btnNewButton.addActionListener(this);
-		btnNewButton.setBounds(47, 537, 197, 47);
-		getContentPane().add(btnNewButton);
+		 botonIniciar = new JButton("INICIAR");
+		 botonIniciar.addActionListener(this);
+		botonIniciar.setBounds(47, 537, 197, 47);
+		getContentPane().add(botonIniciar);
 		
-		 btnNewButton_1 = new JButton("INVITADO");
-		 btnNewButton_1.addActionListener(this);
-		btnNewButton_1.setBounds(288, 537, 197, 47);
-		getContentPane().add(btnNewButton_1);
+		 botonInvitado = new JButton("INVITADO");
+		 botonInvitado.addActionListener(this);
+		botonInvitado.setBounds(288, 537, 197, 47);
+		getContentPane().add(botonInvitado);
 		
-		btnNewButton_2 = new JButton("REGISTRAR");
-		btnNewButton_2.addActionListener(this);
-		btnNewButton_2.setBounds(536, 537, 205, 47);
-		getContentPane().add(btnNewButton_2);
+		botonRegistrar = new JButton("REGISTRAR");
+		botonRegistrar.addActionListener(this);
+		botonRegistrar.setBounds(536, 537, 205, 47);
+		getContentPane().add(botonRegistrar);
 		
-		JLabel lblNewLabel_1 = new JLabel("Nombre:");
-		lblNewLabel_1.setFont(new Font("Baskerville Old Face", Font.PLAIN, 25));
-		lblNewLabel_1.setForeground(Color.LIGHT_GRAY);
-		lblNewLabel_1.setBounds(47, 357, 152, 46);
-		getContentPane().add(lblNewLabel_1);
+		JLabel labelNombre = new JLabel("Nombre:");
+		labelNombre.setFont(new Font("Baskerville Old Face", Font.PLAIN, 25));
+		labelNombre.setForeground(Color.LIGHT_GRAY);
+		labelNombre.setBounds(47, 357, 152, 46);
+		getContentPane().add(labelNombre);
 		
-		JLabel lblNewLabel_2 = new JLabel("Contrase\u00F1a:");
-		lblNewLabel_2.setFont(new Font("Baskerville Old Face", Font.PLAIN, 25));
-		lblNewLabel_2.setForeground(Color.LIGHT_GRAY);
-		lblNewLabel_2.setBounds(47, 442, 179, 39);
-		getContentPane().add(lblNewLabel_2);
+		JLabel labelContraseña = new JLabel("Contrase\u00F1a:");
+		labelContraseña.setFont(new Font("Baskerville Old Face", Font.PLAIN, 25));
+		labelContraseña.setForeground(Color.LIGHT_GRAY);
+		labelContraseña.setBounds(47, 442, 179, 39);
+		getContentPane().add(labelContraseña);
 		
 		passwordField = new JPasswordField();
 		passwordField.setBounds(238, 441, 503, 42);
@@ -118,26 +118,41 @@ public class InicioSesion extends JFrame implements ActionListener, Runnable{
 		getContentPane().add(textField);
 		textField.setColumns(10);
 		
-		lblHora = new JLabel(""+calendario.getTime());
-		lblHora.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblHora.setBounds(515, 0, 249, 39);
-		getContentPane().add(lblHora);
-		
-		JPanel panel = new JPanel();
-		panel.setBackground(Color.DARK_GRAY);
-		panel.setBounds(0, 630, 782, 97);
-		getContentPane().add(panel);
-		panel.setLayout(null);
+		JPanel panelInferior = new JPanel();
+		panelInferior.setBackground(Color.DARK_GRAY);
+		panelInferior.setBounds(0, 630, 782, 97);
+		getContentPane().add(panelInferior);
+		panelInferior.setLayout(null);
 		
 		JLabel lblNewLabel_3 = new JLabel("Erik Martinez Iba\u00F1ez");
+		lblNewLabel_3.setForeground(Color.WHITE);
 		lblNewLabel_3.setFont(new Font("Century Schoolbook", Font.PLAIN, 15));
 		lblNewLabel_3.setBounds(620, 50, 150, 34);
-		panel.add(lblNewLabel_3);
+		panelInferior.add(lblNewLabel_3);
 		
 		JLabel lblXabierGalendeEchevarra = new JLabel("Xabier Galende Echevarr\u00EDa");
+		lblXabierGalendeEchevarra.setForeground(Color.WHITE);
 		lblXabierGalendeEchevarra.setFont(new Font("Century Schoolbook", Font.PLAIN, 15));
 		lblXabierGalendeEchevarra.setBounds(578, 39, 192, 16);
-		panel.add(lblXabierGalendeEchevarra);
+		panelInferior.add(lblXabierGalendeEchevarra);
+		
+		lblHora = new JLabel(""+calendario.getTime());
+		lblHora.setBounds(58, 28, 249, 39);
+		panelInferior.add(lblHora);
+		lblHora.setForeground(Color.WHITE);
+		lblHora.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		
+		JPanel arrayImagen = new JPanel();
+		arrayImagen.setBounds(194, 120, 380, 144);
+		getContentPane().add(arrayImagen);
+		
+		JButton imagenAnterior = new JButton("<");
+		imagenAnterior.setBounds(81, 175, 97, 25);
+		getContentPane().add(imagenAnterior);
+		
+		JButton imagenSiguiente = new JButton(">");
+		imagenSiguiente.setBounds(597, 175, 97, 25);
+		getContentPane().add(imagenSiguiente);
 		//inicaianodo la base de datos
 		con=BaseDeDatos.iniciar();
 		 st=BaseDeDatos.usarBD(con);
@@ -189,12 +204,12 @@ public class InicioSesion extends JFrame implements ActionListener, Runnable{
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
 		Object j=arg0.getSource();
-		if(j==btnNewButton) {
+		if(j==botonIniciar) {
 			if(compara()) {
 				System.out.println("te has metido a la pagina principal");
 				this.dispose();
 			}else {System.out.println("contraseña incorrecta");}
-			}else if(j==btnNewButton_1){
+			}else if(j==botonInvitado){
 				System.out.println("modo invitado");
 				this.dispose();
 				}else {
