@@ -2,9 +2,6 @@ package interfaz;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
@@ -29,6 +26,7 @@ import Objetos.USUARIO;
 import java.awt.Toolkit;
 import java.awt.Font;
 import bd.BaseDeDatos;
+import java.awt.Color;
 public class InicioSesion extends JFrame implements ActionListener, Runnable{
 	//para mostrar la ohra al usuario todavia no esta seguro de que se valla a usar
 	Calendar calendario=Calendar.getInstance();
@@ -46,25 +44,9 @@ public class InicioSesion extends JFrame implements ActionListener, Runnable{
 	//Base de datos 
 	Connection con;
 	Statement st;
-	
-	private JMenuBar menuBar;
-	private JMenu menuPrincipal;
-	private JMenuItem m1, m2, m3, m4, m5;
-	
-	
+	JLabel CONTRA ;
+	JLabel ID;
 	public InicioSesion() {
-		
-
-		
-		menuBar = new JMenuBar();
-		setJMenuBar(menuBar);
-		menuPrincipal= new JMenu("W");
-		menuBar.add(menuPrincipal);
-		m1=new JMenuItem("Tienda");
-		m2= new JMenuItem("Catálogo");
-		m3= new JMenuItem("Sobre nosotros...");
-		m4= new JMenuItem("Donde encontrarnos");
-		
 		users=new ArrayList<>();
 		thread=new Thread(this);
 		thread.start();
@@ -112,6 +94,20 @@ public class InicioSesion extends JFrame implements ActionListener, Runnable{
 		lblHora.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblHora.setBounds(515, 0, 249, 39);
 		getContentPane().add(lblHora);
+		
+		CONTRA = new JLabel("CONTRASE\u00D1A INCORRECTA");
+		CONTRA.setFont(new Font("Tahoma", Font.PLAIN, 26));
+		CONTRA.setForeground(Color.RED);
+		CONTRA.setBounds(253, 249, 397, 39);
+		CONTRA.setVisible(false);
+		getContentPane().add(CONTRA);
+		
+		ID = new JLabel("ID INCORRECTO");
+		ID.setFont(new Font("Tahoma", Font.PLAIN, 26));
+		ID.setForeground(Color.RED);
+		ID.setBounds(253, 150, 333, 39);
+		ID.setVisible(false);
+		getContentPane().add(ID);
 		//inicaianodo la base de datos
 		con=BaseDeDatos.iniciar();
 		 st=BaseDeDatos.usarBD(con);
@@ -125,7 +121,7 @@ public class InicioSesion extends JFrame implements ActionListener, Runnable{
 	pack();
 	
 	}
-	//esto unicamente para poder probar antes de que mi compañero haga la base de datos
+	
 	public void leerFichero() {
 		try {
 			FileReader a=new FileReader("usuarios.csv");
@@ -146,28 +142,31 @@ public class InicioSesion extends JFrame implements ActionListener, Runnable{
 			e.printStackTrace();
 		}
 		}
-	//compara si el usuario existe o no
+	//compara si el usuario existe o no y si es el caso de 
+	//que alguna de las dos esta mal se mostrara mediante los labeles cuales estan mal
 	public boolean compara() {
 		for (USUARIO usuario : users) {
 			if(usuario.getNombre().equals(textField.getText())&& 
 			usuario.getContra().equals(String.valueOf(passwordField.getPassword()))) {
 			return  true;
+			}else if(usuario.getContra().equals(String.valueOf(passwordField.getPassword()))) {
+				System.out.println(1);
+				ID.setVisible(true);
 			}
+			else {
+				CONTRA.setVisible(true);
+			}	
 		}
 		return false;
 	}		
-	//todavia necesita crearse la base de datos para poder hacerlo correctamente
-
-
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
 		Object j=arg0.getSource();
 		if(j==btnNewButton) {
 			if(compara()) {
-				System.out.println("te has metido a la pagina principal");
+				new Polo();
 				this.dispose();
-			}else {System.out.println("contraseña incorrecta");}
+			}
 			}else if(j==btnNewButton_1){
 				System.out.println("modo invitado");
 				this.dispose();
@@ -181,5 +180,4 @@ public class InicioSesion extends JFrame implements ActionListener, Runnable{
 		// TODO Auto-generated method stub
 		
 	}
-	
 }

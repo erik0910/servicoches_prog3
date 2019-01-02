@@ -22,10 +22,9 @@ public class BaseDeDatos {
 	}
 	private static void log( Level level, String msg, Throwable excepcion ) {
 		if (log==null) {  // Logger por defecto local:
-			log = Logger.getLogger( BaseDeDatos.class.getName() );  // Nombre del logger - el de la clase
+			log = Logger.getLogger( BaseDeDatos.class.getName() );  // Nombre del logger  de la clase
 			log.setLevel( Level.ALL );  // Loguea todos los niveles
 			try {
-				// logger.addHandler( new FileHandler( "bd-" + System.currentTimeMillis() + ".log.xml" ) );  // Y saca el log a fichero xml
 				log.addHandler( new FileHandler( "bd.log.xml", true ) );  // Y saca el log a fichero xml
 			} catch (Exception e) {
 				log.log( Level.SEVERE, "No se pudo crear fichero de log", e );
@@ -49,9 +48,11 @@ public class BaseDeDatos {
 			return null;
 		}
 	}
+	//para ontener la ultikma excepion
 	public static Exception getLastError() {
 		return lastError;
 	}
+	//los correpsondientes insert
 	public static void insertarUsuarios(Statement state,USUARIO u,int i) {
 		String sentSQL="";
 		
@@ -81,6 +82,7 @@ public class BaseDeDatos {
 		}
 	}
 	//metodo para crear todas las tablas que se usaran en este programa
+	//creadas manualmente
 	public static Statement usarCrearTablasBD( Connection con ) {
 		try {
 			Statement statement = con.createStatement();
@@ -174,10 +176,13 @@ public class BaseDeDatos {
 			e.printStackTrace();
 		}
 	}
+	//objetivo de este mÈtodo es concatenar los caracteres que seran premitidos y los que no 
+	//se encuentren en los permitidos simplemente no se guaradran en la base de datos 
 	private static String secu(String string) {
 		StringBuffer ret = new StringBuffer();
 		for (char c : string.toCharArray()) {
-			if ("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZÒ—·ÈÌÛ˙¸¡…Õ”⁄⁄.,:;-_(){}[]-+*=<>'\"ø?°!&%$@#/\\0123456789".indexOf(c)>=0) ret.append(c);
+			if ("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZÒ—·ÈÌÛ˙¸¡…Õ”⁄⁄.,:;-_(){}[]-+*=<>'\"ø?°!&%$@#/\\0123456789".indexOf(c)>=0)
+				ret.append(c);//para concatenar la palabras que si queremos que se guarde en la base de datos
 		}
 		return ret.toString();
 	}
