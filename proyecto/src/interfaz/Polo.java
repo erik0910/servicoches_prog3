@@ -17,28 +17,45 @@ import java.awt.Color;
 import java.awt.Font;
 
 public class Polo extends JFrame{
-	
 	private JMenuBar menuBar;
 	private JMenu menuPrincipal;
 	private JMenuItem m1, m2, m3, m4, m5;
+<<<<<<< HEAD
 	private JPanel panel;
 	
 	
+=======
+>>>>>>> branch 'master' of https://github.com/erik0910/servicoches_prog3.git
 	public Polo() {
+<<<<<<< HEAD
 		getContentPane().setBackground(Color.BLACK);
 		
+=======
+		//caractaresiticas principales de nuestra ventana
+>>>>>>> branch 'master' of https://github.com/erik0910/servicoches_prog3.git
 	setVisible(true);
+<<<<<<< HEAD
 	setSize(1000, 1000);
 	setLocationRelativeTo(null);
 		
+=======
+		setSize(1500, 1000);
+			setLocationRelativeTo(null);
+				getContentPane().setLayout(null);
+		//menu bar añadiendo los items
+>>>>>>> branch 'master' of https://github.com/erik0910/servicoches_prog3.git
 		menuBar = new JMenuBar();
-		setJMenuBar(menuBar);
+			setJMenuBar(menuBar);
 		menuPrincipal= new JMenu("W");
-		menuBar.add(menuPrincipal);
+			menuBar.add(menuPrincipal);
 		m1=new JMenuItem("Tienda");
+			menuPrincipal.add(m1);
 		m2= new JMenuItem("Catálogo");
+			menuPrincipal.add(m2);
 		m3= new JMenuItem("Sobre nosotros...");
+			menuPrincipal.add(m3);
 		m4= new JMenuItem("Donde encontrarnos");
+<<<<<<< HEAD
 		
 		menuPrincipal.add(m1);
 		menuPrincipal.add(m2);
@@ -47,6 +64,13 @@ public class Polo extends JFrame{
 		
 		
 		getContentPane().setLayout(null);
+=======
+			menuPrincipal.add(m4);
+		//los botones y labels necesarios para nuestra aplicacion
+		JLabel lblNewLabel = new JLabel("FOTO");
+		lblNewLabel.setBounds(544, 101, 188, 118);
+		getContentPane().add(lblNewLabel);
+>>>>>>> branch 'master' of https://github.com/erik0910/servicoches_prog3.git
 		
 		JButton btnComprar = new JButton("A\u00D1ADIR AL CARRO");
 		btnComprar.addActionListener(new ActionListener() {
@@ -59,6 +83,7 @@ public class Polo extends JFrame{
 		JLabel lblNewLabel_2 = new JLabel("PRECIO");
 		lblNewLabel_2.setBounds(1136, 819, 56, 16);
 		getContentPane().add(lblNewLabel_2);
+<<<<<<< HEAD
 		
 		panel = new JPanel();
 		panel.setBackground(Color.DARK_GRAY);
@@ -100,13 +125,9 @@ public class Polo extends JFrame{
 		
 		
 		
+=======
+				
+>>>>>>> branch 'master' of https://github.com/erik0910/servicoches_prog3.git
 	}		
-		
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		
-		new Polo();
-
-	}
+	
 }

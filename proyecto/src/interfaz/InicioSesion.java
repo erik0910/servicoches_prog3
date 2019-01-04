@@ -2,9 +2,7 @@ package interfaz;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
 import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
@@ -30,7 +28,9 @@ import java.awt.Toolkit;
 import java.awt.Font;
 import bd.BaseDeDatos;
 import java.awt.Color;
+
 import javax.swing.JPanel;
+
 public class InicioSesion extends JFrame implements ActionListener, Runnable{
 	//para mostrar la ohra al usuario todavia no esta seguro de que se valla a usar
 	Calendar calendario=Calendar.getInstance();
@@ -41,6 +41,8 @@ public class InicioSesion extends JFrame implements ActionListener, Runnable{
 	private JButton botonInvitado;
 	private JButton botonRegistrar;
 	private JLabel lblHora;
+	
+	
 	//hilo que se usara futuramente para mejorar la imagen de la interfaz 
 	Thread thread;
 	//contenedor de los uusarios contenidos en la base de datos
@@ -48,28 +50,14 @@ public class InicioSesion extends JFrame implements ActionListener, Runnable{
 	//Base de datos 
 	Connection con;
 	Statement st;
+	JLabel CONTRA ;
+	JLabel ID;
 	
-	private JMenuBar menuBar;
-	private JMenu menuPrincipal;
-	private JMenuItem m1, m2, m3, m4, m5;
 	
 	
 	public InicioSesion() {
-		getContentPane().setBackground(Color.BLACK);
-		
 
-		
-		menuBar = new JMenuBar();
-		menuBar.setBackground(Color.DARK_GRAY);
-		menuBar.setForeground(Color.DARK_GRAY);
-		setJMenuBar(menuBar);
-		menuPrincipal= new JMenu("W");
-		menuBar.add(menuPrincipal);
-		m1=new JMenuItem("Tienda");
-		m2= new JMenuItem("Catálogo");
-		m3= new JMenuItem("Sobre nosotros...");
-		m4= new JMenuItem("Donde encontrarnos");
-		
+		getContentPane().setBackground(Color.BLACK);
 		users=new ArrayList<>();
 		thread=new Thread(this);
 		thread.start();
@@ -82,8 +70,8 @@ public class InicioSesion extends JFrame implements ActionListener, Runnable{
 		lblNewLabel.setBounds(530, 13, 240, 39);
 		getContentPane().add(lblNewLabel);
 		
-		 botonIniciar = new JButton("INICIAR");
-		 botonIniciar.addActionListener(this);
+		botonIniciar = new JButton("INICIAR");
+		botonIniciar.addActionListener(this);
 		botonIniciar.setBounds(47, 537, 197, 47);
 		getContentPane().add(botonIniciar);
 		
@@ -141,6 +129,7 @@ public class InicioSesion extends JFrame implements ActionListener, Runnable{
 		panelInferior.add(lblHora);
 		lblHora.setForeground(Color.WHITE);
 		lblHora.setFont(new Font("Tahoma", Font.PLAIN, 15));
+
 		
 		JPanel arrayImagen = new JPanel();
 		arrayImagen.setBounds(194, 120, 380, 144);
@@ -153,6 +142,24 @@ public class InicioSesion extends JFrame implements ActionListener, Runnable{
 		JButton imagenSiguiente = new JButton(">");
 		imagenSiguiente.setBounds(597, 175, 97, 25);
 		getContentPane().add(imagenSiguiente);
+
+		lblHora.setBounds(515, 0, 249, 39);
+		getContentPane().add(lblHora);
+		
+		CONTRA = new JLabel("CONTRASE\u00D1A INCORRECTA");
+		CONTRA.setFont(new Font("Tahoma", Font.PLAIN, 26));
+		CONTRA.setForeground(Color.RED);
+		CONTRA.setBounds(253, 249, 397, 39);
+		CONTRA.setVisible(false);
+		getContentPane().add(CONTRA);
+		
+		ID = new JLabel("ID INCORRECTO");
+		ID.setFont(new Font("Tahoma", Font.PLAIN, 26));
+		ID.setForeground(Color.RED);
+		ID.setBounds(253, 150, 333, 39);
+		ID.setVisible(false);
+		getContentPane().add(ID);
+
 		//inicaianodo la base de datos
 		con=BaseDeDatos.iniciar();
 		 st=BaseDeDatos.usarBD(con);
@@ -166,7 +173,7 @@ public class InicioSesion extends JFrame implements ActionListener, Runnable{
 	pack();
 	
 	}
-	//esto unicamente para poder probar antes de que mi compañero haga la base de datos
+	
 	public void leerFichero() {
 		try {
 			FileReader a=new FileReader("usuarios.csv");
@@ -187,39 +194,48 @@ public class InicioSesion extends JFrame implements ActionListener, Runnable{
 			e.printStackTrace();
 		}
 		}
-	//compara si el usuario existe o no
+	//compara si el usuario existe o no y si es el caso de 
+	//que alguna de las dos esta mal se mostrara mediante los labeles cuales estan mal
 	public boolean compara() {
 		for (USUARIO usuario : users) {
 			if(usuario.getNombre().equals(textField.getText())&& 
 			usuario.getContra().equals(String.valueOf(passwordField.getPassword()))) {
 			return  true;
+			}else if(usuario.getContra().equals(String.valueOf(passwordField.getPassword()))) {
+				System.out.println(1);
+				ID.setVisible(true);
 			}
+			else {
+				CONTRA.setVisible(true);
+			}	
 		}
 		return false;
 	}		
-	//todavia necesita crearse la base de datos para poder hacerlo correctamente
-
-
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
 		Object j=arg0.getSource();
 		if(j==botonIniciar) {
 			if(compara()) {
-				System.out.println("te has metido a la pagina principal");
+				new Polo();
 				this.dispose();
+
 			}else {System.out.println("contraseña incorrecta");}
-			}else if(j==botonInvitado){
-				System.out.println("modo invitado");
-				this.dispose();
-				}else {
-				new Registro();	
-				this.dispose();
+			}else if(j==botonInvitado){}
+
+			}
+			//}else if(j==btnNewButton_1){
+
+				//System.out.println("modo invitado");
+				//this.dispose();
+				//}else {
+				//new Registro();	
+				//this.dispose();
+				//}
+				//@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					
 				}
 	}
-	@Override
-	public void run() {
-		// TODO Auto-generated method stub
-		
-	}
-}
+	
+
