@@ -7,17 +7,21 @@ import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
+import java.awt.SystemColor;
 
 public class Catálogo extends JFrame{
 	public Catálogo() {
+		getContentPane().setBackground(SystemColor.controlHighlight);
 		getContentPane().setLayout(null);
 		
 		JLabel lblCatlogo = new JLabel("CAT\u00C1LOGO");
-		lblCatlogo.setFont(new Font("Baskerville Old Face", Font.PLAIN, 18));
-		lblCatlogo.setBounds(396, 13, 122, 50);
+		lblCatlogo.setFont(new Font("Baskerville Old Face", Font.PLAIN, 25));
+		lblCatlogo.setBounds(82, 28, 199, 58);
 		getContentPane().add(lblCatlogo);
 		
 		JLabel lblPoloGasolina = new JLabel("POLO GASOLINA");
+		lblPoloGasolina.setForeground(Color.BLACK);
 		lblPoloGasolina.setFont(new Font("Baskerville Old Face", Font.PLAIN, 13));
 		lblPoloGasolina.setBounds(82, 181, 141, 50);
 		getContentPane().add(lblPoloGasolina);
@@ -52,12 +56,13 @@ public class Catálogo extends JFrame{
 		botonPoloGasolina.setBounds(244, 153, 157, 122);
 		getContentPane().add(botonPoloGasolina);
 		
-		JButton btnNewButton_1 = new JButton("New button");
+		JButton btnNewButton_1 = new JButton("");
+		btnNewButton_1.setIcon(new ImageIcon(Catálogo.class.getResource("/interfaz/poloDiesel.jpg")));
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		btnNewButton_1.setBounds(675, 153, 141, 102);
+		btnNewButton_1.setBounds(666, 153, 150, 119);
 		getContentPane().add(btnNewButton_1);
 		
 		JButton btnNewButton_2 = new JButton("");
@@ -69,12 +74,14 @@ public class Catálogo extends JFrame{
 		btnNewButton_2.setBounds(244, 288, 157, 116);
 		getContentPane().add(btnNewButton_2);
 		
-		JButton btnNewButton_3 = new JButton("New button");
-		btnNewButton_3.setBounds(675, 285, 141, 96);
+		JButton btnNewButton_3 = new JButton("");
+		btnNewButton_3.setIcon(new ImageIcon(Catálogo.class.getResource("/interfaz/passatFamiliar.jpg")));
+		btnNewButton_3.setBounds(666, 285, 150, 119);
 		getContentPane().add(btnNewButton_3);
 		
-		JButton btnNewButton_4 = new JButton("New button");
-		btnNewButton_4.setBounds(679, 433, 137, 102);
+		JButton btnNewButton_4 = new JButton("");
+		btnNewButton_4.setIcon(new ImageIcon(Catálogo.class.getResource("/interfaz/touareg.jpg")));
+		btnNewButton_4.setBounds(666, 433, 150, 116);
 		getContentPane().add(btnNewButton_4);
 		
 		JButton btnNewButton_5 = new JButton("");
