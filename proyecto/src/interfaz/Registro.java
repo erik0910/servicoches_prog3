@@ -41,30 +41,30 @@ public class Registro extends JFrame implements ActionListener{
 		getContentPane().setLayout(null);
 		//recogemos todos los usuarios 
 		textField = new JTextField();
-		textField.setBounds(354, 257, 373, 45);
+		textField.setBounds(354, 296, 373, 45);
 		getContentPane().add(textField);
 		textField.setColumns(10);
 		
 		JLabel lblNombre = new JLabel("Nombre:");
 		lblNombre.setForeground(Color.WHITE);
 		lblNombre.setFont(new Font("Baskerville Old Face", Font.PLAIN, 30));
-		lblNombre.setBounds(101, 259, 138, 39);
+		lblNombre.setBounds(101, 296, 138, 39);
 		getContentPane().add(lblNombre);
 		
 		JLabel lblContrasea = new JLabel("Contrase\u00F1a:");
 		lblContrasea.setForeground(Color.WHITE);
 		lblContrasea.setFont(new Font("Baskerville Old Face", Font.PLAIN, 30));
-		lblContrasea.setBounds(101, 382, 188, 39);
+		lblContrasea.setBounds(101, 435, 188, 39);
 		getContentPane().add(lblContrasea);
 		
 		 btnRegistrar = new JButton("Registrar");
 		 btnRegistrar.setFont(new Font("Baskerville Old Face", Font.PLAIN, 26));
-		btnRegistrar.setBounds(334, 523, 197, 47);
+		btnRegistrar.setBounds(337, 573, 197, 47);
 		btnRegistrar.addActionListener(this);
 		getContentPane().add(btnRegistrar);
 		
 		passwordField = new JPasswordField();
-		passwordField.setBounds(354, 381, 373, 42);
+		passwordField.setBounds(354, 436, 373, 42);
 		getContentPane().add(passwordField);
 		
 		JLabel lblNewLabel = new JLabel("P\u00E1gina de Registro\r\n");
@@ -75,7 +75,7 @@ public class Registro extends JFrame implements ActionListener{
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.DARK_GRAY);
-		panel.setBounds(0, 683, 882, 170);
+		panel.setBounds(0, 689, 882, 164);
 		getContentPane().add(panel);
 		panel.setLayout(null);
 		
@@ -83,13 +83,13 @@ public class Registro extends JFrame implements ActionListener{
 		lblNewLabel_1.setForeground(Color.WHITE);
 		lblNewLabel_1.setBackground(new Color(255, 255, 255));
 		lblNewLabel_1.setFont(new Font("Baskerville Old Face", Font.PLAIN, 20));
-		lblNewLabel_1.setBounds(681, 30, 189, 32);
+		lblNewLabel_1.setBounds(681, 61, 189, 32);
 		panel.add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("Xabier Galende Echevarr\u00EDa");
 		lblNewLabel_2.setForeground(Color.WHITE);
 		lblNewLabel_2.setFont(new Font("Baskerville Old Face", Font.PLAIN, 20));
-		lblNewLabel_2.setBounds(643, 75, 227, 26);
+		lblNewLabel_2.setBounds(643, 106, 227, 26);
 		panel.add(lblNewLabel_2);
 		setVisible(true);
 		c = BaseDeDatos.iniciar();
