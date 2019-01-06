@@ -22,6 +22,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import javax.swing.JPasswordField;
 import bd.BaseDeDatos;
+import java.awt.Font;
+import javax.swing.JPanel;
+import java.awt.Color;
 public class Registro extends JFrame implements ActionListener{
 	private static JTextField textField;
 	protected static ArrayList<USUARIO>p1=new ArrayList<>();
@@ -31,32 +34,63 @@ public class Registro extends JFrame implements ActionListener{
 	protected int id=0;
 	JButton btnRegistrar ;
 	public Registro() {
+		getContentPane().setBackground(Color.BLACK);
 		setSize(new Dimension(900, 900));
 		setPreferredSize(getSize());
 		pack(); 
 		getContentPane().setLayout(null);
 		//recogemos todos los usuarios 
 		textField = new JTextField();
-		textField.setBounds(285, 203, 373, 45);
+		textField.setBounds(354, 257, 373, 45);
 		getContentPane().add(textField);
 		textField.setColumns(10);
 		
 		JLabel lblNombre = new JLabel("Nombre:");
-		lblNombre.setBounds(51, 206, 138, 39);
+		lblNombre.setForeground(Color.WHITE);
+		lblNombre.setFont(new Font("Baskerville Old Face", Font.PLAIN, 30));
+		lblNombre.setBounds(101, 259, 138, 39);
 		getContentPane().add(lblNombre);
 		
 		JLabel lblContrasea = new JLabel("Contrase\u00F1a:");
-		lblContrasea.setBounds(51, 382, 188, 39);
+		lblContrasea.setForeground(Color.WHITE);
+		lblContrasea.setFont(new Font("Baskerville Old Face", Font.PLAIN, 30));
+		lblContrasea.setBounds(101, 382, 188, 39);
 		getContentPane().add(lblContrasea);
 		
 		 btnRegistrar = new JButton("Registrar");
-		btnRegistrar.setBounds(272, 552, 197, 47);
+		 btnRegistrar.setFont(new Font("Baskerville Old Face", Font.PLAIN, 26));
+		btnRegistrar.setBounds(334, 523, 197, 47);
 		btnRegistrar.addActionListener(this);
 		getContentPane().add(btnRegistrar);
 		
 		passwordField = new JPasswordField();
-		passwordField.setBounds(285, 379, 373, 42);
+		passwordField.setBounds(354, 381, 373, 42);
 		getContentPane().add(passwordField);
+		
+		JLabel lblNewLabel = new JLabel("P\u00E1gina de Registro\r\n");
+		lblNewLabel.setForeground(Color.WHITE);
+		lblNewLabel.setFont(new Font("Baskerville Old Face", Font.PLAIN, 48));
+		lblNewLabel.setBounds(86, 48, 373, 103);
+		getContentPane().add(lblNewLabel);
+		
+		JPanel panel = new JPanel();
+		panel.setBackground(Color.DARK_GRAY);
+		panel.setBounds(0, 683, 882, 170);
+		getContentPane().add(panel);
+		panel.setLayout(null);
+		
+		JLabel lblNewLabel_1 = new JLabel("Erik Martinez Iba\u00F1ez");
+		lblNewLabel_1.setForeground(Color.WHITE);
+		lblNewLabel_1.setBackground(new Color(255, 255, 255));
+		lblNewLabel_1.setFont(new Font("Baskerville Old Face", Font.PLAIN, 20));
+		lblNewLabel_1.setBounds(681, 30, 189, 32);
+		panel.add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_2 = new JLabel("Xabier Galende Echevarr\u00EDa");
+		lblNewLabel_2.setForeground(Color.WHITE);
+		lblNewLabel_2.setFont(new Font("Baskerville Old Face", Font.PLAIN, 20));
+		lblNewLabel_2.setBounds(643, 75, 227, 26);
+		panel.add(lblNewLabel_2);
 		setVisible(true);
 		c = BaseDeDatos.iniciar();
 		st = BaseDeDatos.usarBD(c);

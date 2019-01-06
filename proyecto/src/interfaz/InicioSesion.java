@@ -40,7 +40,7 @@ public class InicioSesion extends JFrame implements ActionListener, Runnable{
 	private JButton botonIniciar;
 	private JButton botonInvitado;
 	private JButton botonRegistrar;
-	private JLabel lblHora;
+	
 	
 	
 	//hilo que se usara futuramente para mejorar la imagen de la interfaz 
@@ -108,7 +108,7 @@ public class InicioSesion extends JFrame implements ActionListener, Runnable{
 		
 		JPanel panelInferior = new JPanel();
 		panelInferior.setBackground(Color.DARK_GRAY);
-		panelInferior.setBounds(0, 630, 782, 97);
+		panelInferior.setBounds(0, 635, 782, 118);
 		getContentPane().add(panelInferior);
 		panelInferior.setLayout(null);
 		
@@ -124,11 +124,11 @@ public class InicioSesion extends JFrame implements ActionListener, Runnable{
 		lblXabierGalendeEchevarra.setBounds(578, 39, 192, 16);
 		panelInferior.add(lblXabierGalendeEchevarra);
 		
-		lblHora = new JLabel(""+calendario.getTime());
-		lblHora.setBounds(58, 28, 249, 39);
-		panelInferior.add(lblHora);
-		lblHora.setForeground(Color.WHITE);
-		lblHora.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		//lblHora = new JLabel(""+calendario.getTime());
+		//lblHora.setBounds(58, 28, 249, 39);
+		//panelInferior.add(lblHora);
+		//lblHora.setForeground(Color.WHITE);
+		//lblHora.setFont(new Font("Tahoma", Font.PLAIN, 15));
 
 		
 		JPanel arrayImagen = new JPanel();
@@ -143,13 +143,13 @@ public class InicioSesion extends JFrame implements ActionListener, Runnable{
 		imagenSiguiente.setBounds(597, 175, 97, 25);
 		getContentPane().add(imagenSiguiente);
 
-		lblHora.setBounds(515, 0, 249, 39);
-		getContentPane().add(lblHora);
+		//lblHora.setBounds(515, 0, 249, 39);
+		//getContentPane().add(lblHora);
 		
 		CONTRA = new JLabel("CONTRASE\u00D1A INCORRECTA");
 		CONTRA.setFont(new Font("Tahoma", Font.PLAIN, 26));
 		CONTRA.setForeground(Color.RED);
-		CONTRA.setBounds(253, 249, 397, 39);
+		CONTRA.setBounds(217, 277, 333, 39);
 		CONTRA.setVisible(false);
 		getContentPane().add(CONTRA);
 		
@@ -216,7 +216,7 @@ public class InicioSesion extends JFrame implements ActionListener, Runnable{
 		Object j=arg0.getSource();
 		if(j==botonIniciar) {
 			if(compara()) {
-				new Polo();
+				//new Polo();
 				this.dispose();
 
 			}else {System.out.println("contraseña incorrecta");}
