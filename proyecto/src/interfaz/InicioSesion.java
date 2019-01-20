@@ -48,8 +48,6 @@ public class InicioSesion extends JFrame implements ActionListener, Runnable{
 	private JMenuItem miLug;
 	private JMenuItem miInicio;
 	
-	
-	
 	//hilo que se usara futuramente para mejorar la imagen de la interfaz 
 	Thread thread;
 	//contenedor de los uusarios contenidos en la base de datos
@@ -59,8 +57,6 @@ public class InicioSesion extends JFrame implements ActionListener, Runnable{
 	Statement st;
 	JLabel CONTRA ;
 	JLabel ID;
-	
-	
 	
 	public InicioSesion() {
 
