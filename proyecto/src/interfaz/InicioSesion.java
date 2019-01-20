@@ -2,7 +2,9 @@ package interfaz;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
@@ -40,6 +42,11 @@ public class InicioSesion extends JFrame implements ActionListener, Runnable{
 	private JButton botonIniciar;
 	private JButton botonInvitado;
 	private JButton botonRegistrar;
+	private JMenuBar barraMenu;
+	private JMenu menu;
+	private JMenuItem miCata;
+	private JMenuItem miLug;
+	private JMenuItem miInicio;
 	
 	
 	
@@ -64,6 +71,21 @@ public class InicioSesion extends JFrame implements ActionListener, Runnable{
 		setTitle("Servi-coches tu app para hacer compras");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(InicioSesion.class.getResource("/imagenes/Volkswagen-e-Golf-600x400.jpg")));
 		getContentPane().setLayout(null);
+		
+		barraMenu = new JMenuBar();
+		menu = new JMenu("SC");
+		barraMenu.add(menu);
+		miCata = new JMenuItem("Catálogo");
+		miLug= new JMenuItem("Donde encontrarnos");
+		miInicio = new JMenuItem("Inicio");
+		
+		menu.add(miCata);
+		menu.add(miInicio);
+		menu.add(miLug);
+		
+		
+		
+		
 		
 		lblNewLabel = new JLabel("SERVI-COCHES");
 		lblNewLabel.setForeground(Color.LIGHT_GRAY);

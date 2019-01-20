@@ -2,6 +2,10 @@ package interfaz;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+
 import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
@@ -11,9 +15,28 @@ import java.awt.Color;
 import java.awt.SystemColor;
 
 public class Catálogo extends JFrame{
+	
+	private JMenuBar barraMenu;
+	private JMenu menu;
+	private JMenuItem miCata;
+	private JMenuItem miLug;
+	private JMenuItem miInicio;
+	
 	public Catálogo() {
 		getContentPane().setBackground(SystemColor.controlHighlight);
 		getContentPane().setLayout(null);
+		setTitle("Servi-coches tu app para hacer compras");
+		
+		barraMenu = new JMenuBar();
+		menu = new JMenu("SC");
+		barraMenu.add(menu);
+		miCata = new JMenuItem("Catálogo");
+		miLug= new JMenuItem("Donde encontrarnos");
+		miInicio = new JMenuItem("Inicio");
+		
+		menu.add(miCata);
+		menu.add(miInicio);
+		menu.add(miLug);
 		
 		JLabel lblCatlogo = new JLabel("CAT\u00C1LOGO");
 		lblCatlogo.setFont(new Font("Baskerville Old Face", Font.PLAIN, 25));
